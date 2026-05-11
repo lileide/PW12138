@@ -1,0 +1,37 @@
+/* Websites (Sites) Section Styles */
+.sites__container {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.site-card {
+    background-color: var(--container-bg-color);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    text-align: center;
+    box-shadow: var(--box-shadow);
+    transition: var(--transition);
+    border: 2px solid transparent;
+}
+
+.site-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+}
+
+.site-card__icon {
+    font-size: 2.6rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.site-card__title {
+    font-size: 1.25rem;
+    color: var(--title-color);
+    margin-bottom: 0.5rem;
+}
+
+.site-card__description {
+    font-size: var(--small-font-size);
+    color: var(--text-color-light);
+}

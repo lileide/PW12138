@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comgan's Homepage</title>
+    <meta name="author" content="Comgan Li">
+    <meta name="description" content="数学爱好者 & 开发者 | 项目分享与学习笔记">
+    <meta name="keywords" content="Comgan,数学,编程,开发者,个人主页">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        :root {
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --primary: #3b82f6;
+            --primary-light: #dbeafe;
+            --border: #e2e8f0;
+            --shadow: 0 4px 20px rgba(0,0,0,0.05);
+            --nav-bg: rgba(255,255,255,0.85);
+        }
+
+        [data-theme="dark"] {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #f1f5f9;
+            --text-light: #94a3b8;
+            --primary: #38bdf8;
+            --primary-light: #164e63;
+            --border: #334155;
+            --shadow: 0 4px 20px rgba(0,0,0,0.2);
+            --nav-bg: rgba(15,23,42,0.85);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .grid {
+            display: grid;
+            gap: 32px;
+        }
+
+        .section {
+            padding: 90px 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 0.6s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section__title {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section__title::after {
+            content: '';
+            width: 60px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+            position: absolute;
+            left: 50%;
+            bottom: -12px;
+            transform: translateX(-50%);
+        }
+
+        /* 导航 */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+
+        .nav__logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav__list {
+            display: flex;
+            list-style: none;
+            gap: 28px;
+        }
+
+        .nav__link {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .nav__link:hover {
+            color: var(--primary);
+        }
+
+        .nav__actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .theme-switcher {
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--text);
+        }
+
+        .nav__toggle {
+            display: none;
+            font-size: 22px;
+            cursor: pointer;
+        }
+
+        /* 主页 */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 70px;
+        }
+
+        .hero__container {
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+        }
+
+        .hero__content h1 {
+            font-size: 48px;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .hero__subtitle {
+            font-size: 20px;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .hero__description {
+            color: var(--text-light);
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .hero__buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .button {
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            border: none;
+            font-size: 15px;
+        }
+
+        .button {
+            background: var(--primary);
+            color: white;
+        }
+
+        .button--ghost {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .hero__image img {
+            width: 280px;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 50%;
+            box-shadow: var(--shadow);
+            border: 4px solid var(--card);
+            margin-left: auto;
+            display: block;
+        }
+
+        /* 卡片 */
+        .project-card, .site-card, .social-card {
+            background: var(--card);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .project-card:hover, .site-card:hover, .social-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+        }
+
+        .project-card__img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .project-card__content {
+            padding: 20px;
+        }
+
+        .project-card__title {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .project-card__description {
+            color: var(--text-light);
+            font-size: 14px;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .project-card__actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .project-card__action {
+            font-size: 13px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .project-card__action--primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* 网格布局 */
+        .projects__grid, .sites__container, .socials__container {
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        }
+
+        .site-card, .social-card {
+            padding: 32px 24px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        .site-card__icon, .social-card__icon {
+            font-size: 36px;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+
+        /* 筛选按钮 */
+        .projects__filters {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .filter-button {
+            padding: 8px 18px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--text);
+            cursor: pointer;
+        }
+
+        .filter-button.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* 时间线 */
+        .timeline {
+            border-left: 3px solid var(--primary);
+            padding-left: 20px;
+            margin-left: 10px;
+        }
+
+        .timeline__item {
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .timeline__item::before {
+            content: '';
+            width: 12px;
+            height: 12px;
+            background: var(--primary);
+            border-radius: 50%;
+            position: absolute;
+            left: -28px;
+            top: 6px;
+        }
+
+        .timeline__date {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-bottom: 4px;
+        }
+
+        /* 技能 */
+        .skills__container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .skill-item {
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 10px 18px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+        }
+
+        .skill-item i {
+            color: var(--primary);
+        }
+
+        /* 关于我 */
+        .about__container {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        /* 联系 */
+        .contact__container {
+            text-align: center;
+        }
+
+        .contact__buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
+        /* 弹窗 */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal__content {
+            background: var(--card);
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+            position: relative;
+            max-width: 320px;
+            width: 90%;
+        }
+
+        .modal__close {
+            position: absolute;
+            top: 16px;
+            right: 18px;
+            font-size: 22px;
+            cursor: pointer;
+        }
+
+        .modal__content img {
+            width: 200px;
+            margin: 16px 0;
+        }
+
+        /* 底部 */
+        .footer {
+            padding: 30px 0;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            color: var(--text-light);
+        }
+
+        /* 移动端 */
+        @media (max-width: 900px) {
+            .nav__menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: 100vh;
+                background: var(--bg);
+                padding: 40px 24px;
+                transition: 0.4s;
+            }
+
+            .nav__menu.active {
+                left: 0;
+            }
+
+            .nav__list {
+                flex-direction: column;
+                gap: 22px;
+            }
+
+            .nav__toggle {
+                display: block;
+            }
+
+            .hero__container, .about__container {
+                grid-template-columns: 1fr;
+            }
+
+            .hero__image img {
+                margin: 30px auto 0;
+            }
+
+            .hero__content h1 {
+                font-size: 36px;
+                text-align: center;
+            }
+
+            .hero__content {
+                text-align: center;
+            }
+
+            .hero__buttons {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <nav class="nav container">
+        <a href="#" class="nav__logo">Comgan</a>
+        <div class="nav__menu" id="nav-menu">
+            <ul class="nav__list">
+                <li class="nav__item"><a href="#hero" class="nav__link">首页</a></li>
+                <li class="nav__item"><a href="#about" class="nav__link">关于我</a></li>
+                <li class="nav__item"><a href="#projects" class="nav__link">项目</a></li>
+                <li class="nav__item"><a href="#sites" class="nav__link">我写的网站</a></li>
+                <li class="nav__item"><a href="#socials" class="nav__link">我的频道</a></li>
+                <li class="nav__item"><a href="#skills" class="nav__link">技能</a></li>
+                <li class="nav__item"><a href="#contact" class="nav__link">联系我</a></li>
+            </ul>
+        </div>
+        <div class="nav__actions">
+            <i class="fas fa-moon theme-switcher" id="theme-button"></i>
+            <div class="nav__toggle" id="nav-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main>
+    <section id="hero" class="hero section">
+        <div class="hero__container container grid">
+            <div class="hero__content">
+                <h1>你好, 我是 Comgan</h1>
+                <p class="hero__subtitle">数学爱好者 & 开发者</p>
+                <p class="hero__description">If I never see you again, good morning, good afternoon and good night.</p>
+                <div class="hero__buttons">
+                    <a href="#projects" class="button">查看我的项目</a>
+                    <a href="#sites" class="button button--ghost">我写的网站</a>
+                    <a href="https://gitee.com/Comgan-Li04" target="_blank" class="button button--ghost">访问 gitee</a>
+                </div>
+            </div>
+            <div class="hero__image">
+                <img src="https://picsum.photos/300/300" alt="Avatar">
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about section">
+        <h2 class="section__title">关于我</h2>
+        <div class="about__container container grid">
+            <div class="about__left">
+                <p>我目前是<strong>五山农专</strong>数学与应用数学专业的大四学生。</p>
+                <p>这个网站是我记录学习、分享想法和展示成果的地方。</p>
+                <div style="margin-top:20px">
+                    <h3>一些碎碎念</h3>
+                    <p style="color:var(--text-light);margin-top:8px">建立个人网站的初衷就是能让想认识我的人看看我啥成分。</p>
+                </div>
+            </div>
+            <div class="about__right">
+                <div class="timeline">
+                    <div class="timeline__item">
+                        <div class="timeline__date">2025-12-25</div>
+                        <div class="timeline__content"><h3>学术分享</h3><p>发布时频分析笔记</p></div>
+                    </div>
+                    <div class="timeline__item">
+                        <div class="timeline__date">2025-12-09</div>
+                        <div class="timeline__content"><h3>网站开发</h3><p>谭思慧唱歌记录网站</p></div>
+                    </div>
+                    <div class="timeline__item">
+                        <div class="timeline__date">2025-09-06</div>
+                        <div class="timeline__content"><h3>网站开发</h3><p>Comgan Music 上线</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="projects section">
+        <h2 class="section__title">项目 & 笔记</h2>
+        <div class="projects__container container">
+            <div class="projects__filters">
+                <button class="filter-button active" data-filter="all">全部</button>
+                <button class="filter-button" data-filter="project">个人项目</button>
+                <button class="filter-button" data-filter="notes">学习笔记</button>
+            </div>
+            <div class="projects__grid grid">
+                <div class="project-card" data-category="project">
+                    <img src="https://picsum.photos/400/200?1" alt="">
+                    <div class="project-card__content">
+                        <h3 class="project-card__title">Comgan Music</h3>
+                        <p class="project-card__description">48系小偶像音乐网站</p>
+                        <div class="project-card__actions">
+                            <a href="#" class="project-card__action project-card__action--primary">源码</a>
+                            <a href="#" class="project-card__action">查看</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card" data-category="project">
+                    <img src="https://picsum.photos/400/200?2" alt="">
+                    <div class="project-card__content">
+                        <h3 class="project-card__title">视频剪辑工具箱</h3>
+                        <p class="project-card__description">语音转文字、批量转码、剪辑工具</p>
+                        <div class="project-card__actions">
+                            <a href="#" class="project-card__action project-card__action--primary">源码</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card" data-category="notes">
+                    <img src="https://picsum.photos/400/200?3" alt="">
+                    <div class="project-card__content">
+                        <h3 class="project-card__title">时频分析笔记</h3>
+                        <p class="project-card__description">cohen《time-frequency analysis》学习笔记</p>
+                        <div class="project-card__actions">
+                            <a href="#" class="project-card__action project-card__action--primary">源码</a>
+                            <a href="#" class="project-card__action">PDF</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sites" class="sites section">
+        <h2 class="section__title">我写的网站</h2>
+        <div class="sites__container container grid">
+            <a href="#" class="site-card">
+                <i class="fa-solid fa-music site-card__icon"></i>
+                <h3>Comgan Music</h3>
+                <p>48系小偶像音乐网站</p>
+            </a>
+            <a href="#" class="site-card">
+                <i class="fa-solid fa-toolbox site-card__icon"></i>
+                <h3>abm48工具箱</h3>
+                <p>在线音视频剪辑工具</p>
+            </a>
+            <a href="#" class="site-card">
+                <i class="fa-solid fa-user site-card__icon"></i>
+                <h3>个人主页</h3>
+                <p>作品集与学习记录</p>
+            </a>
+        </div>
+    </section>
+
+    <section id="socials" class="socials section">
+        <h2 class="section__title">我的频道</h2>
+        <div class="socials__container container grid">
+            <a href="#" class="social-card">
+                <i class="fab fa-bilibili social-card__icon"></i>
+                <h3>B站学习号</h3>
+                <p>数学与编程知识分享</p>
+            </a>
+            <a href="#" class="social-card">
+                <i class="fab fa-bilibili social-card__icon"></i>
+                <h3>录播号</h3>
+                <p>口袋48 & 抖音录播</p>
+            </a>
+            <a href="#" class="social-card">
+                <i class="fab fa-weibo social-card__icon"></i>
+                <h3>微博</h3>
+                <p>追星日常</p>
+            </a>
+        </div>
+    </section>
+
+    <section id="skills" class="skills section">
+        <h2 class="section__title">我的技能</h2>
+        <div class="skills__container container">
+            <div class="skill-item"><i class="fab fa-python"></i><span>Python</span></div>
+            <div class="skill-item"><i class="fas fa-cogs"></i><span>FFmpeg</span></div>
+            <div class="skill-item"><i class="fab fa-java"></i><span>Java</span></div>
+            <div class="skill-item"><i class="fas fa-superscript"></i><span>LaTeX</span></div>
+            <div class="skill-item"><i class="fab fa-docker"></i><span>Docker</span></div>
+            <div class="skill-item"><i class="fab fa-git-alt"></i><span>Git</span></div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact section">
+        <h2 class="section__title">联系我</h2>
+        <div class="contact__container container">
+            <p>欢迎通过以下方式与我交流</p>
+            <div class="contact__buttons">
+                <a href="mailto:Libojun04@gmail.com" class="button"><i class="fas fa-envelope"></i> 发送邮件</a>
+                <button class="button" id="wechat-btn"><i class="fab fa-weixin"></i> 微信</button>
+                <button class="button" id="qq-btn"><i class="fab fa-qq"></i> QQ</button>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="footer__container container">
+        <p>&copy; 2025 Comgan Li. All Rights Reserved.</p>
+    </div>
+</footer>
+
+<div class="modal" id="wechat-modal">
+    <div class="modal__content">
+        <span class="modal__close">&times;</span>
+        <h3>微信</h3>
+        <img src="https://picsum.photos/200/200" alt="微信">
+        <p>扫一扫添加我</p>
+    </div>
+</div>
+
+<div class="modal" id="qq-modal">
+    <div class="modal__content">
+        <span class="modal__close">&times;</span>
+        <h3>QQ</h3>
+        <img src="https://picsum.photos/200/200" alt="QQ">
+        <p>扫一扫添加我</p>
+    </div>
+</div>
+
+<script>
+    // 主题切换
+    const themeBtn = document.getElementById('theme-button');
+    const html = document.documentElement;
+    themeBtn.addEventListener('click', () => {
+        const isDark = html.getAttribute('data-theme') === 'dark';
+        html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        themeBtn.classList.toggle('fa-sun', !isDark);
+        themeBtn.classList.toggle('fa-moon', isDark);
+    });
+
+    // 移动端菜单
+    const navToggle = document.getElementById('nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    navToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+    });
+    document.querySelectorAll('.nav__link').forEach(link => {
+        link.addEventListener('click', () => navMenu.classList.remove('active'));
+    });
+
+    // 弹窗
+    const wechatBtn = document.getElementById('wechat-btn');
+    const qqBtn = document.getElementById('qq-btn');
+    const wechatModal = document.getElementById('wechat-modal');
+    const qqModal = document.getElementById('qq-modal');
+    const closeBtns = document.querySelectorAll('.modal__close');
+
+    wechatBtn.addEventListener('click', () => wechatModal.classList.add('active'));
+    qqBtn.addEventListener('click', () => qqModal.classList.add('active'));
+    closeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            wechatModal.classList.remove('active');
+            qqModal.classList.remove('active');
+        });
+    });
+
+    // 项目筛选
+    const filterBtns = document.querySelectorAll('.filter-button');
+    const projectCards = document.querySelectorAll('.project-card');
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const filter = btn.getAttribute('data-filter');
+            projectCards.forEach(card => {
+                const cat = card.getAttribute('data-category');
+                card.style.display = (filter === 'all' || cat === filter) ? 'block' : 'none';
+            });
+        });
+    });
+
+    // 滚动显示动画
+    const sections = document.querySelectorAll('.section');
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => e.target.classList.toggle('visible', e.isIntersecting));
+    }, { threshold: 0.1 });
+    sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
