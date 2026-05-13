@@ -48,19 +48,32 @@
             overflow-x: hidden;
         }
 
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
         .container {
             max-width: 1100px;
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 0 20px;
         }
 
         .grid {
             display: grid;
-            gap: 32px;
+            gap: 20px;
+        }
+
+        /* 工具网、频道 改成 横向多列小卡片 */
+        .sites__grid, .socials__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
         }
 
         .section {
-            padding: 90px 0;
+            padding: 70px 0;
             opacity: 0;
             transform: translateY(30px);
             transition: 0.6s ease;
@@ -73,8 +86,8 @@
 
         .section__title {
             text-align: center;
-            font-size: 32px;
-            margin-bottom: 50px;
+            font-size: 28px;
+            margin-bottom: 40px;
             position: relative;
         }
 
@@ -119,7 +132,7 @@
         .nav__list {
             display: flex;
             list-style: none;
-            gap: 28px;
+            gap: 24px;
         }
 
         .nav__link {
@@ -164,7 +177,7 @@
         }
 
         .hero__content h1 {
-            font-size: 48px;
+            font-size: 42px;
             margin-bottom: 12px;
             line-height: 1.2;
         }
@@ -199,9 +212,6 @@
             cursor: pointer;
             border: none;
             font-size: 15px;
-        }
-
-        .button {
             background: var(--primary);
             color: white;
         }
@@ -220,88 +230,97 @@
             box-shadow: var(--shadow);
             border: 4px solid var(--card);
             margin-left: auto;
-            display: block;
         }
 
-        /* 卡片 */
-        .project-card, .site-card, .social-card {
-            background: var(--card);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
+        /* 关于我 */
+        .about__container {
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
         }
 
-        .project-card:hover, .site-card:hover, .social-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+        .about__intro h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
         }
 
-        .project-card__img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .project-card__content {
-            padding: 20px;
-        }
-
-        .project-card__title {
-            font-size: 18px;
-            margin-bottom: 8px;
-        }
-
-        .project-card__description {
+        .about__bio {
             color: var(--text-light);
-            font-size: 14px;
-            margin-bottom: 16px;
-            line-height: 1.5;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            font-size: 1rem;
         }
 
-        .project-card__actions {
+        .about__tags {
+            margin-top: 1.5rem;
             display: flex;
+            flex-wrap: wrap;
             gap: 10px;
         }
 
-        .project-card__action {
-            font-size: 13px;
-            padding: 6px 12px;
-            border-radius: 6px;
-            text-decoration: none;
+        .tag {
             background: var(--primary-light);
             color: var(--primary);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
         }
 
-        .project-card__action--primary {
+        .timeline__title {
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 20px;
+            border-left: 2px solid var(--border);
+        }
+
+        .timeline__item {
+            position: relative;
+            padding-bottom: 2rem;
+            padding-left: 1.5rem;
+        }
+
+        .timeline__item::before {
+            content: '';
+            position: absolute;
+            left: -26px;
+            top: 5px;
+            width: 10px;
+            height: 10px;
             background: var(--primary);
-            color: white;
+            border-radius: 50%;
+            border: 2px solid var(--bg);
         }
 
-        /* 网格布局 */
-        .projects__grid, .sites__container, .socials__container {
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        .timeline__date {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 0.3rem;
         }
 
-        .site-card, .social-card {
-            padding: 32px 24px;
-            text-align: center;
-            text-decoration: none;
-            color: var(--text);
+        .timeline__content h3 {
+            font-size: 1.1rem;
+            margin: 0 0 0.5rem 0;
         }
 
-        .site-card__icon, .social-card__icon {
-            font-size: 36px;
-            color: var(--primary);
-            margin-bottom: 16px;
+        .timeline__content p {
+            margin: 0;
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
         }
 
-        /* 筛选按钮 */
+        /* 项目 */
         .projects__filters {
             display: flex;
             justify-content: center;
             gap: 12px;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
         }
 
         .filter-button {
@@ -319,33 +338,110 @@
             border-color: var(--primary);
         }
 
-        /* 时间线 */
-        .timeline {
-            border-left: 3px solid var(--primary);
-            padding-left: 20px;
-            margin-left: 10px;
+        .projects__grid {
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         }
 
-        .timeline__item {
-            margin-bottom: 24px;
+        /* 卡片 改成 小巧横排方块 */
+        .project-card, .site-card, .social-card {
+            background: var(--card);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            padding: 16px 10px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        .project-card:hover, .site-card:hover, .social-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        .site-card__icon, .social-card__icon {
+            font-size: 26px;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .site-card h3, .social-card h3 {
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        .site-card p, .social-card p {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .project-card__header {
             position: relative;
         }
 
-        .timeline__item::before {
-            content: '';
-            width: 12px;
-            height: 12px;
-            background: var(--primary);
-            border-radius: 50%;
-            position: absolute;
-            left: -28px;
-            top: 6px;
+        .project-card__image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
         }
 
-        .timeline__date {
-            font-size: 13px;
+        .project-card__meta {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .project-card__date, .project-card__role {
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            backdrop-filter: blur(4px);
+        }
+
+        .project-card__role {
+            background: var(--primary);
+        }
+
+        .project-card__body {
+            padding: 20px;
+        }
+
+        .project-card__title {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .project-card__description {
             color: var(--text-light);
-            margin-bottom: 4px;
+            font-size: 14px;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .project-card__tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .tech-tag {
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
         /* 技能 */
@@ -369,11 +465,6 @@
 
         .skill-item i {
             color: var(--primary);
-        }
-
-        /* 关于我 */
-        .about__container {
-            grid-template-columns: 1fr 1fr;
         }
 
         /* 联系 */
@@ -427,7 +518,7 @@
 
         .modal__content img {
             width: 200px;
-            margin: 16px 0;
+            margin: 16px auto;
         }
 
         /* 底部 */
@@ -438,7 +529,7 @@
             color: var(--text-light);
         }
 
-        /* 移动端 */
+        /* 移动端适配 */
         @media (max-width: 900px) {
             .nav__menu {
                 position: fixed;
@@ -464,16 +555,18 @@
                 display: block;
             }
 
-            .hero__container, .about__container {
+            .hero__container,
+            .about__container {
                 grid-template-columns: 1fr;
+                gap: 30px;
             }
 
             .hero__image img {
-                margin: 30px auto 0;
+                margin: 0 auto;
             }
 
             .hero__content h1 {
-                font-size: 36px;
+                font-size: 32px;
                 text-align: center;
             }
 
@@ -484,6 +577,19 @@
             .hero__buttons {
                 justify-content: center;
             }
+
+            .section {
+                padding: 50px 0;
+            }
+
+            .about__container {
+                gap: 2rem;
+            }
+
+            /* 手机端小卡片更小 */
+            .sites__grid, .socials__grid {
+                grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            }
         }
     </style>
 </head>
@@ -491,14 +597,15 @@
 
 <header class="header">
     <nav class="nav container">
-        <a href="#" class="nav__logo">Comgan</a>
+        <a href="#" class="nav__logo">AiBert</a>
         <div class="nav__menu" id="nav-menu">
             <ul class="nav__list">
                 <li class="nav__item"><a href="#hero" class="nav__link">首页</a></li>
                 <li class="nav__item"><a href="#about" class="nav__link">关于我</a></li>
+				<li class="nav__item"><a href="./assets/images/李磊-软件工程师-15308675259 java.docx" class="nav__link" download="简历  25-05-16.docx">简历下载</a></li>
                 <li class="nav__item"><a href="#projects" class="nav__link">项目</a></li>
-                <li class="nav__item"><a href="#sites" class="nav__link">我写的网站</a></li>
-                <li class="nav__item"><a href="#socials" class="nav__link">我的频道</a></li>
+                <li class="nav__item"><a href="#sites" class="nav__link">工具箱</a></li>
+                <li class="nav__item"><a href="#socials" class="nav__link">频道</a></li>
                 <li class="nav__item"><a href="#skills" class="nav__link">技能</a></li>
                 <li class="nav__item"><a href="#contact" class="nav__link">联系我</a></li>
             </ul>
@@ -521,7 +628,7 @@
                 <p class="hero__description">If I never see you again, good morning, good afternoon and good night.</p>
                 <div class="hero__buttons">
                     <a href="#projects" class="button">查看我的项目</a>
-                    <a href="#sites" class="button button--ghost">我写的网站</a>
+                    <a href="#sites" class="button button--ghost">工具箱</a>
                     <a href="https://gitee.com/Comgan-Li04" target="_blank" class="button button--ghost">访问 gitee</a>
                 </div>
             </div>
@@ -535,26 +642,47 @@
         <h2 class="section__title">关于我</h2>
         <div class="about__container container grid">
             <div class="about__left">
-                <p>我目前是<strong>在职3年</strong>的小牛马。</p>
-                <p>这个网站是我记录学习、分享想法和展示成果的地方。</p>
-                <div style="margin-top:20px">
-                    <h3>一些碎碎念</h3>
-                    <p style="color:var(--text-light);margin-top:8px">建立个人网站的初衷就是能让想认识我的人看看我啥成分。</p>
+                <div class="about__intro">
+                    <h3>你好，我是[ Comgan ] 👋</h3>
+                    <p class="about__bio">
+                        一名拥有 <strong>3年实战经验</strong> 的开发者。虽常自嘲是勤恳的“职场小牛马”，但我对技术始终保持着热爱与好奇。
+                    </p>
+                    <p class="about__bio">
+                        这个网站是我的<strong>数字花园</strong>，这里不仅记录了我的技术学习笔记，也存放着我的项目成果和偶尔迸发的灵感碎碎念。建立它的初衷很简单：让想了解我的人，能更立体地看到我的“成分”。
+                    </p>
+                </div>
+                
+                <div class="about__tags">
+                    <span class="tag">💻 兴趣开发</span>
+                    <span class="tag">🎵 音乐爱好者</span>
+                    <span class="tag">🚀 终身学习</span>
+                    <span class="tag">☕ 咖啡续命</span>
                 </div>
             </div>
+
             <div class="about__right">
+                <h3 class="timeline__title">近期工作 & 学习</h3>
                 <div class="timeline">
                     <div class="timeline__item">
-                        <div class="timeline__date">2025-12-25</div>
-                        <div class="timeline__content"><h3>学术分享</h3><p>发布时频分析笔记</p></div>
+                        <div class="timeline__date">2026-05</div>
+                        <div class="timeline__content">
+                            <h3>兴趣 · 个人网站搭建</h3>
+                            <p><strong>兴趣主导</strong>，从需求分析、架构设计到核心功能编码及最终部署上线。</p>
+                        </div>
                     </div>
                     <div class="timeline__item">
-                        <div class="timeline__date">2025-12-09</div>
-                        <div class="timeline__content"><h3>网站开发</h3><p>谭思慧唱歌记录网站</p></div>
+                        <div class="timeline__date">2026-03</div>
+                        <div class="timeline__content">
+                            <h3>十堰赛力斯 · PBS调度系统</h3>
+                            <p><strong>独立全权负责</strong>，完成系统核心模块开发及最终落地交付，实现了生产调度流程的数字化管理。</p>
+                        </div>
                     </div>
                     <div class="timeline__item">
-                        <div class="timeline__date">2025-09-06</div>
-                        <div class="timeline__content"><h3>网站开发</h3><p>Comgan Music 上线</p></div>
+                        <div class="timeline__date">2025-12</div>
+                        <div class="timeline__content">
+                            <h3>郑州比亚迪 · 中控系统</h3>
+                            <p><strong>从0到1搭建</strong>，完成环网搭建、软硬件配置、能源采集、数据采集、滑橇工单自动下发等关键步骤。</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -562,43 +690,79 @@
     </section>
 
     <section id="projects" class="projects section">
-        <h2 class="section__title">项目 & 笔记</h2>
+        <h2 class="section__title">项目经验</h2>
         <div class="projects__container container">
             <div class="projects__filters">
                 <button class="filter-button active" data-filter="all">全部</button>
-                <button class="filter-button" data-filter="project">个人项目</button>
-                <button class="filter-button" data-filter="notes">学习笔记</button>
+                <button class="filter-button" data-filter="project">工业自动化</button>
+                <button class="filter-button" data-filter="notes">后端开发</button>
             </div>
+
             <div class="projects__grid grid">
                 <div class="project-card" data-category="project">
-                    <img src="https://picsum.photos/400/200?1" alt="">
-                    <div class="project-card__content">
-                        <h3 class="project-card__title">Comgan Music</h3>
-                        <p class="project-card__description">48系小偶像音乐网站</p>
-                        <div class="project-card__actions">
-                            <a href="#" class="project-card__action project-card__action--primary">源码</a>
-                            <a href="#" class="project-card__action">查看</a>
+                    <div class="project-card__header">
+                        <img src="https://picsum.photos/400/200?random=1" alt="济南重汽项目" class="project-card__image">
+                        <div class="project-card__meta">
+                            <span class="project-card__date"><i class="far fa-calendar-alt"></i> 2023.10 - 2024.04</span>
+                            <span class="project-card__role">C#开发</span>
+                        </div>
+                    </div>
+                    <div class="project-card__body">
+                        <h3 class="project-card__title">济南重汽·涂装中控CCR</h3>
+                        <p class="project-card__description">
+                            负责能源采集、输送控制、工艺监控及报表开发。实现了车间全链路的数据可视化与自动化控制。
+                        </p>
+                        <div class="project-card__tech">
+                            <span class="tech-tag"><i class="fab fa-microsoft"></i> C#</span>
+                            <span class="tech-tag"><i class="fas fa-plug"></i> S7.Net</span>
+                            <span class="tech-tag"><i class="fas fa-database"></i> MySQL</span>
+                            <span class="tech-tag"><i class="fas fa-memory"></i> Redis</span>
+                            <span class="tech-tag"><i class="fas fa-industry"></i> PLC通讯</span>
                         </div>
                     </div>
                 </div>
+
                 <div class="project-card" data-category="project">
-                    <img src="https://picsum.photos/400/200?2" alt="">
-                    <div class="project-card__content">
-                        <h3 class="project-card__title">视频剪辑工具箱</h3>
-                        <p class="project-card__description">语音转文字、批量转码、剪辑工具</p>
-                        <div class="project-card__actions">
-                            <a href="#" class="project-card__action project-card__action--primary">源码</a>
+                    <div class="project-card__header">
+                        <img src="https://picsum.photos/400/200?random=2" alt="武汉小鹏项目" class="project-card__image">
+                        <div class="project-card__meta">
+                            <span class="project-card__date"><i class="far fa-calendar-alt"></i> 2024.03 - 2024.07</span>
+                            <span class="project-card__role">开发组长</span>
+                        </div>
+                    </div>
+                    <div class="project-card__body">
+                        <h3 class="project-card__title">武汉小鹏·涂装中控系统</h3>
+                        <p class="project-card__description">
+                            主导质量追溯、PDA手持端开发、BI报表及全栈对接。解决了复杂产线环境下的RFID/AVI数据交互难题。
+                        </p>
+                        <div class="project-card__tech">
+                            <span class="tech-tag"><i class="fas fa-window-frame"></i> WinForm</span>
+                            <span class="tech-tag"><i class="fas fa-qrcode"></i> ZXing.Net</span>
+                            <span class="tech-tag"><i class="fas fa-server"></i> SQL Server</span>
+                            <span class="tech-tag"><i class="fas fa-exchange-alt"></i> RFID/AVI</span>
                         </div>
                     </div>
                 </div>
-                <div class="project-card" data-category="notes">
-                    <img src="https://picsum.photos/400/200?3" alt="">
-                    <div class="project-card__content">
-                        <h3 class="project-card__title">时频分析笔记</h3>
-                        <p class="project-card__description">cohen《time-frequency analysis》学习笔记</p>
-                        <div class="project-card__actions">
-                            <a href="#" class="project-card__action project-card__action--primary">源码</a>
-                            <a href="#" class="project-card__action">PDF</a>
+
+                <div class="project-card" data-category="project">
+                    <div class="project-card__header">
+                        <img src="https://picsum.photos/400/200?random=3" alt="重庆赛力斯项目" class="project-card__image">
+                        <div class="project-card__meta">
+                            <span class="project-card__date"><i class="far fa-calendar-alt"></i> 2024.10 - 2025.04</span>
+                            <span class="project-card__role">项目组长</span>
+                        </div>
+                    </div>
+                    <div class="project-card__body">
+                        <h3 class="project-card__title">重庆赛力斯·涂装中控ERP</h3>
+                        <p class="project-card__description">
+                            负责PBS/WBS调度、节能监控、WEB端开发及项目验收。通过微服务架构实现了产线与ERP系统的深度集成。
+                        </p>
+                        <div class="project-card__tech">
+                            <span class="tech-tag"><i class="fab fa-java"></i> Spring Boot</span>
+                            <span class="tech-tag"><i class="fas fa-leaf"></i> MyBatis</span>
+                            <span class="tech-tag"><i class="fas fa-network-wired"></i> Nacos</span>
+                            <span class="tech-tag"><i class="fas fa-globe"></i> Element UI</span>
+                            <span class="tech-tag"><i class="fas fa-bolt"></i> 能源优化</span>
                         </div>
                     </div>
                 </div>
@@ -606,44 +770,62 @@
         </div>
     </section>
 
+    <!-- 工具网 改成 横向一排小方块 -->
     <section id="sites" class="sites section">
-        <h2 class="section__title">我写的网站</h2>
-        <div class="sites__container container grid">
-            <a href="#" class="site-card">
-                <i class="fa-solid fa-music site-card__icon"></i>
-                <h3>Comgan Music</h3>
-                <p>48系小偶像音乐网站</p>
+        <h2 class="section__title">工具网</h2>
+        <div class="sites__container container sites__grid">
+            <a href="https://www.remove.bg/zh/upload" target="_blank" class="site-card">
+                <i class="fa-solid fa-image site-card__icon"></i>
+                <h3>在线去背景</h3>
+                <p>AI抠图</p>
             </a>
-            <a href="#" class="site-card">
-                <i class="fa-solid fa-toolbox site-card__icon"></i>
-                <h3>abm48工具箱</h3>
-                <p>在线音视频剪辑工具</p>
+            
+            <a href="https://www.51tool.com/ico/" target="_blank" class="site-card">
+                <i class="fa-solid fa-pastafarianism site-card__icon"></i>
+                <h3>ICO图标</h3>
+                <p>图片转图标</p>
             </a>
-            <a href="#" class="site-card">
-                <i class="fa-solid fa-user site-card__icon"></i>
-                <h3>个人主页</h3>
-                <p>作品集与学习记录</p>
+            
+            <a href="https://www.pppet.net/" target="_blank" class="site-card">
+                <i class="fa-solid fa-calendar-days site-card__icon"></i>
+                <h3>Cron表达式</h3>
+                <p>定时生成</p>
             </a>
+			
+            <a href="photokit.com/colors/eyedropper/?lang=zh" target="_blank" class="site-card">
+                <i class="fa-solid fa-palette site-card__icon"></i>
+                <h3>取色器</h3>
+                <p>色值转换</p>
+            </a>
+			
+			<a href="https://www.hipdf.cn/pdf-to-jpg" target="_blank" class="site-card">
+			    <i class="fa-solid fa-file-export site-card__icon"></i>
+			    <h3>PDF转图片</h3>
+			    <p>格式转换</p>
+			</a>
         </div>
     </section>
 
+    <!-- 频道 改成 横向一排小方块 -->
     <section id="socials" class="socials section">
-        <h2 class="section__title">我的频道</h2>
-        <div class="socials__container container grid">
-            <a href="#" class="social-card">
+        <h2 class="section__title">频道</h2>
+        <div class="socials__container container socials__grid">
+            <a href="https://space.bilibili.com/510598291" target="_blank" class="social-card">
                 <i class="fab fa-bilibili social-card__icon"></i>
-                <h3>B站学习号</h3>
-                <p>数学与编程知识分享</p>
+                <h3>B站</h3>
+                <p>知识分享</p>
             </a>
-            <a href="#" class="social-card">
-                <i class="fab fa-bilibili social-card__icon"></i>
-                <h3>录播号</h3>
-                <p>口袋48 & 抖音录播</p>
+			
+            <a href="#" target="_blank" class="social-card">
+                <i class="fab fa-weixin social-card__icon"></i>
+                <h3>公众号</h3>
+                <p>最新动态</p>
             </a>
-            <a href="#" class="social-card">
-                <i class="fab fa-weibo social-card__icon"></i>
-                <h3>微博</h3>
-                <p>追星日常</p>
+			
+            <a href="https://github.com/lileide"  target="_blank" class="social-card">
+                <i class="fab fa-github social-card__icon"></i>
+                <h3>GitHub</h3>
+                <p>开源项目</p>
             </a>
         </div>
     </section>
@@ -651,12 +833,18 @@
     <section id="skills" class="skills section">
         <h2 class="section__title">我的技能</h2>
         <div class="skills__container container">
-            <div class="skill-item"><i class="fab fa-python"></i><span>Python</span></div>
-            <div class="skill-item"><i class="fas fa-cogs"></i><span>FFmpeg</span></div>
-            <div class="skill-item"><i class="fab fa-java"></i><span>Java</span></div>
-            <div class="skill-item"><i class="fas fa-superscript"></i><span>LaTeX</span></div>
-            <div class="skill-item"><i class="fab fa-docker"></i><span>Docker</span></div>
-            <div class="skill-item"><i class="fab fa-git-alt"></i><span>Git</span></div>
+			<div class="skill-item"><i class="fab fa-java"></i><span>Spring Boot</span></div>
+			<div class="skill-item"><i class="fas fa-leaf"></i><span>Mybatis</span></div>
+			<div class="skill-item"><i class="fas fa-database"></i><span>MySql</span></div>
+			<div class="skill-item"><i class="fas fa-server"></i><span>Redis</span></div>
+			<div class="skill-item"><i class="fas fa-layer-group"></i><span>若依</span></div>
+			<div class="skill-item"><i class="fas fa-network-wired"></i><span>MQTT</span></div>
+			<div class="skill-item"><i class="fas fa-microchip"></i><span>KepWare</span></div>
+			<div class="skill-item"><i class="fas fa-project-diagram"></i><span>工业通讯协议</span></div>
+			<div class="skill-item"><i class="fas fa-broadcast-tower"></i><span>传感器</span></div>
+			<div class="skill-item"><i class="fab fa-docker"></i><span>Docker</span></div>
+			<div class="skill-item"><i class="fab fa-git-alt"></i><span>Git</span></div>
+			<div class="skill-item"><i class="fab fa-microsoft"></i><span>C#</span></div>
         </div>
     </section>
 
@@ -674,16 +862,14 @@
 </main>
 
 <footer class="footer">
-    <div class="footer__container container">
-        <p>&copy; 2025 Comgan Li. All Rights Reserved.</p>
-    </div>
+    <p>&copy; 2025 Comgan Li. All Rights Reserved.</p>
 </footer>
 
 <div class="modal" id="wechat-modal">
     <div class="modal__content">
         <span class="modal__close">&times;</span>
         <h3>微信</h3>
-        <img src="./assets/images/avatar.jpg" alt="微信">
+        <img src="./assets/images/WX.jpg" alt="微信">
         <p>扫一扫 添加我</p>
     </div>
 </div>
@@ -692,7 +878,7 @@
     <div class="modal__content">
         <span class="modal__close">&times;</span>
         <h3>QQ</h3>
-        <img src="./assets/images/avatar.jpg" alt="QQ">
+        <img src="./assets/images/QQ.jpg" alt="QQ">
         <p>扫一扫 添加我</p>
     </div>
 </div>
